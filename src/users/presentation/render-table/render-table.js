@@ -28,7 +28,6 @@ export const renderTable = element => {
     const users = usersStore.getUsers();
 
     if(!table) {
-        console.log('creating table');
         table = createTable();
         element.append(table);
     }
@@ -53,7 +52,7 @@ export const renderTable = element => {
             </tr>
         `
     })
-    table.querySelector('tbody').innerHTML += tableHtml;
+    table.querySelector('tbody').innerHTML = tableHtml;
 
 
 }
