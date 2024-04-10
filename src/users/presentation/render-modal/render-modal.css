@@ -1,0 +1,42 @@
+.modal-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,.5);
+    display: flex;
+    justify-content:  center;
+    align-items: center;
+}
+
+.modal-dialog{
+    background: white;
+    padding: 20px 60px;
+    border-radius: 10px;
+}
+
+.modal-dialog form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.modal-dialog form *{
+    margin-bottom: 20px;
+}
+
+.modal-dialog form span{
+    font-size: 24px;
+    text-align: left;
+}
+
+.modal-dialog form input{
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 16px;
+}
+
+.hide-modal{
+    display: none!important;
+}
