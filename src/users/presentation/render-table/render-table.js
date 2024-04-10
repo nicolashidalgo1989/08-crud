@@ -1,4 +1,6 @@
 import usersStore from '../../store/users-store';
+import { deleteUserById } from '../../use-cases/delete-use-by-id';
+import { toggleModal } from '../render-modal/render-modal';
 import './render-table.css';
 
 let table;
@@ -23,6 +25,27 @@ const createTable = () => {
 
 }
 
+const tableDeleteListener = async(e) => {
+    const el = e.target.closest('.delete-user');
+    if(!el) return;
+    const id = el.getAttribute('data-id');
+    try{
+        await usersStore.reloadPage();
+        await deleteUserById(id);
+        document.querySelector('#current-page').innerText = usersStore.getCurrentPage();
+        renderTable();
+    }catch(error){
+        console.log(error);
+    }
+}
+
+const tableSelectListener = e => {
+    const el = e.target.closest('.select-user');
+    if(!el) return;
+    const id = el.getAttribute('data-id');
+    toggleModal(id)
+}
+
 export const renderTable = element => {
 
     const users = usersStore.getUsers();
@@ -30,6 +53,12 @@ export const renderTable = element => {
     if(!table) {
         table = createTable();
         element.append(table);
+
+        table.addEventListener('click', (e) => {
+            tableSelectListener(e);
+            tableDeleteListener(e);
+        })
+
     }
 
     // TODO: Listeners en la tabla
@@ -45,9 +74,9 @@ export const renderTable = element => {
                 <td>${lastName}</td>
                 <td>${isActive}</td>
                 <td>
-                    <a href="/#" data-id="${id}">Select</a>
+                    <a href="/#" class="select-user" data-id="${id}">Select</a>
                     |
-                    <a href="/#" data-id="${id}">Delete</a>
+                    <a href="/#" class="delete-user" data-id="${id}">Delete</a>
                 </td>
             </tr>
         `

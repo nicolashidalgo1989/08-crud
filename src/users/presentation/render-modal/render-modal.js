@@ -1,14 +1,28 @@
 import html from './render-modal.html?raw';
 import './render-modal.css';
+import {getUserById} from '../../use-cases/get-user-by-id';
 
-let modal, form;
+let modal, form, loadedUser;
 
-export const toggleModal = () => {
+export const toggleModal = async(id) => {
     modal?.classList.toggle('hide-modal');
-    form?.reset();
+    if(!id) {
+        form?.reset();
+        return;
+    }
+    const user = await getUserById(id);
+    setFormValues(user);
 }
 
-export const renderModal = element =>  {
+const setFormValues = user => {
+    form.querySelector('[name="firstName"').value = user.firstName;
+    form.querySelector('[name="lastName"').value = user.lastName;
+    form.querySelector('[name="balance"').value = user.balance;
+    form.querySelector('[name="isActive"').checked = user.isActive;
+    loadedUser = user;
+}
+
+export const renderModal = (element, callback ) =>  {
     if(modal) return;
     modal = document.createElement('div');
     modal.innerHTML = html;
@@ -21,7 +35,7 @@ export const renderModal = element =>  {
         if(e.target.classList.contains('modal-container')) toggleModal();
     })
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const formData = new FormData( form );
@@ -39,7 +53,7 @@ export const renderModal = element =>  {
             userLike[key] = value;
         }
 
-        console.log(userLike);
+        await callback(userLike);
 
         toggleModal();
     })
