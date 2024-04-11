@@ -46,6 +46,8 @@ export const renderModal = (element, callback ) =>  {
         const formData = new FormData( form );
         const userLike = { ...loadedUser };
 
+        if(!formData.get('isActive')) { formData.set('isActive', false); }
+
         for(const [key, value] of formData){
             if(key === 'balance') {
                 userLike[key] = parseInt(value);

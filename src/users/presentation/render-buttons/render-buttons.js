@@ -15,7 +15,6 @@ export const renderButtons = element => {
     prevButton.innerText = '< prev';
     prevButton.disabled = (usersStore.getCurrentPage() === 1);
 
-
     const currentPageLabel =  document.createElement('span');
     currentPageLabel.id = 'current-page';
     currentPageLabel.innerText = usersStore.getCurrentPage();

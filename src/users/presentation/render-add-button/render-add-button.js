@@ -1,7 +1,7 @@
 import { showModal } from '../render-modal/render-modal';
 import './render-add-button.css';
 
-export const renderAddButton = (element, callback) => {
+export const renderAddButton = (element) => {
 
     const addButton = document.createElement('button');
     addButton.innerText = '+ Crear Usuario';
@@ -9,6 +9,6 @@ export const renderAddButton = (element, callback) => {
 
     element.append(addButton);
 
-    addButton.addEventListener('click', showModal)
+    addButton.addEventListener('click', () => showModal() )
 
 }

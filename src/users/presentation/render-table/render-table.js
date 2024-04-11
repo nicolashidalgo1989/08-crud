@@ -61,8 +61,6 @@ export const renderTable = element => {
 
     }
 
-    // TODO: Listeners en la tabla
-
     let tableHtml = '';
     users.forEach( user => {
         const { id, balance, firstName, lastName, isActive } = user;
