@@ -22,7 +22,7 @@ const loadPreviousPage = async() => {
 const onUserChanged =  ( updatedUser ) => {
     let wasFound = false;
     state.users = state.users.map( user => {
-        if( user.id === updatedUser.id){
+        if( user.id === updatedUser.id ){
             wasFound =  true;
             return updatedUser;
         }

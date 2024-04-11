@@ -13,11 +13,7 @@ export const saveUser = async(userLike) => {
     const userToSave = userModelToLocalhost( user );
     let userUpdated;
 
-    if(user.id){
-        userUpdated = await updateUser(userToSave);
-    } else {
-        userUpdated = await createUser(userToSave);
-    }
+    userUpdated = (user.id) ? await updateUser(userToSave) : await createUser(userToSave);
 
     return localhostUserToModel(userUpdated);
 }
@@ -40,7 +36,7 @@ const createUser = async ( user ) => {
 
 const updateUser = async ( user ) => {
 
-    const url  = `${ import.meta.env.VITE_BASE_URL }/users/${ user.id }`;
+    const url = `${ import.meta.env.VITE_BASE_URL }/users/${ user.id }`;
     const res = await fetch( url, {
         method: 'PATCH',
         body: JSON.stringify(user),

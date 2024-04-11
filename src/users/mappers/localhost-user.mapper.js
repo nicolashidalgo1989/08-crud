@@ -9,7 +9,7 @@ export const localhostUserToModel = localhostUser => {
         gender,
         id,
         isActive,
-        last_name
+        last_name,
     } = localhostUser;
 
     return new User({

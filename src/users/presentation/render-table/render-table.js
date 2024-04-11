@@ -1,6 +1,6 @@
 import usersStore from '../../store/users-store';
 import { deleteUserById } from '../../use-cases/delete-use-by-id';
-import { toggleModal } from '../render-modal/render-modal';
+import { showModal } from '../render-modal/render-modal';
 import './render-table.css';
 
 let table;
@@ -30,8 +30,8 @@ const tableDeleteListener = async(e) => {
     if(!el) return;
     const id = el.getAttribute('data-id');
     try{
-        await usersStore.reloadPage();
         await deleteUserById(id);
+        await usersStore.reloadPage();
         document.querySelector('#current-page').innerText = usersStore.getCurrentPage();
         renderTable();
     }catch(error){
@@ -43,7 +43,7 @@ const tableSelectListener = e => {
     const el = e.target.closest('.select-user');
     if(!el) return;
     const id = el.getAttribute('data-id');
-    toggleModal(id)
+    showModal(id)
 }
 
 export const renderTable = element => {
@@ -65,7 +65,7 @@ export const renderTable = element => {
 
     let tableHtml = '';
     users.forEach( user => {
-        const { id, balance, firstName, lastName, isActive, gender } = user;
+        const { id, balance, firstName, lastName, isActive } = user;
         tableHtml += `
             <tr>
                 <td>${id}</td>

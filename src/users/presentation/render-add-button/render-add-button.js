@@ -1,3 +1,4 @@
+import { showModal } from '../render-modal/render-modal';
 import './render-add-button.css';
 
 export const renderAddButton = (element, callback) => {
@@ -8,9 +9,6 @@ export const renderAddButton = (element, callback) => {
 
     element.append(addButton);
 
-    addButton.addEventListener('click', () =>  {
-        if(!callback) return;
-        callback();
-    })
+    addButton.addEventListener('click', showModal)
 
 }
